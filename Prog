@@ -1,0 +1,110 @@
+#include <iostream>
+#include <ctime>
+#include <algorithm>
+#include <vector>
+int getRandomNumber(int min, int max)
+{
+	static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
+	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
+}
+int main()
+{
+	srand(static_cast<unsigned int>(time(0)));
+	getRandomNumber(1, 100);
+	std::vector<int> arra;
+	std::vector<int> arrb;
+	std::vector<int> arrc;
+	int M1, M2;
+	int N1, N2;
+	int i, j;
+	int size,sizec;
+	int** matrix1;
+	std::cout << "Vvedite dlin1:    ";
+	std::cin >> M1;
+	std::cout << "Vvedite shirin1:    ";
+	std::cin >> N1;
+	arra.resize(M1 * N1);
+	matrix1 = new int*[M1];
+	size = 0;
+	sizec = 0;
+	for (i = 0; i < M1; i++)
+	{
+		matrix1[i] = new int[N1];
+	}
+	for (i = 0; i < M1; i++)
+	{
+		for (j = 0; j < N1; j++)
+		{
+			matrix1[i][j] = getRandomNumber(1, 20);
+			std::cout << matrix1[i][j] << "   \t";
+			arra[size] = matrix1[i][j];
+			size++;
+		}
+		std::cout << "\n";
+	}
+	std::cout << "\n";
+	size = 0;
+	int** matrix2;
+	std::cout << "Vvedite dlin2:    ";
+	std::cin >> M2;
+	std::cout << "Vvedite shirin2:    ";
+	std::cin >> N2;
+	arrb.resize(M2 * N2);
+	matrix2 = new int*[M2];
+	for (i = 0; i < M2; i++)
+	{
+		matrix2[i] = new int[N2];
+	}
+	for (i = 0; i < M2; i++)
+	{
+		for (j = 0; j < N2; j++)
+		{
+			matrix2[i][j] = getRandomNumber(2, 20);
+			std::cout << matrix2[i][j] << "   \t";
+			arrb[size] = matrix2[i][j];
+			size++;
+		}
+		std::cout << "\n";
+	}
+	std::cout << "\n\n\n";
+	std::sort(arra.begin(), arra.end());
+	std::sort(arrb.begin(), arrb.end());
+	size = 0;
+	arrc.resize(M2 * N2 + N1 * M1);
+	for (i = 0; i < M1; i++)
+	{
+		for (j = 0; j < N1; j++)
+		{
+			std::cout << arra[size] << "   \t";
+			arrc[sizec] = arra[size];
+			size++; sizec++;
+		}
+		std::cout << "\n";
+	}
+	std::cout << "\n\n\n";
+	size = 0;
+	for (i = 0; i < M2; i++)
+	{
+		for (j = 0; j < N2; j++)
+		{
+			std::cout << arrb[size] << "   \t";
+			arrc[sizec] = arrb[size];
+			size++; sizec++;
+		}
+		std::cout << "\n";
+	}
+	std::cout << "\n\n\n";
+	sizec = 0;
+	std::sort(arrc.begin(), arrc.end());
+	for (i = 0; i < (M2+N2); i++)
+	{
+		for (j = 0; j < (N2+M2); j++)
+		{
+			std::cout << arrc[sizec] << "   \t";
+			sizec++;
+		}
+		std::cout << "\n";
+	}
+	
+	system("pause");
+}
